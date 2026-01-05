@@ -119,13 +119,35 @@ footer {
     background-color: rgba(249,230,225,0.9);
     color: #4b3c2a;
 }
+
+.site-header {
+    background-color: rgba(249,230,225,0.9);
+    padding: 15px 0;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.site-logo {
+    height: 60px;
+    width: auto;
+}
+
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1>¡Nuestra Invitación!</h1>
+<header class="site-header">
+    <div class="header-content">
+        <img src="images/logo-site.jpg" alt="Logo Nuestra Boda" class="site-logo">
+        <h1>¡Nuestra Invitación!</h1>
+    </div>
 </header>
 
 <div class="invitation">

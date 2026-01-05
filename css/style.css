@@ -448,3 +448,21 @@ footer {
   font-weight: 600;
   margin-top: 15px;
 }
+
+.site-header {
+    background-color: rgba(249,230,225,0.9);
+    padding: 15px 0;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.site-logo {
+    height: 60px;   /* poți mări sau micșora */
+    width: auto;
+}
