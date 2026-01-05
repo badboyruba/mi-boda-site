@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación - Nuestra Boda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDxyVnfeo6Pxi58Q-QGVxZPTa3_2WbEXXE",
+  authDomain: "boda-peru.firebaseapp.com",
+  projectId: "boda-peru",
+  storageBucket: "boda-peru.firebasestorage.app",
+  messagingSenderId: "30450032616",
+  appId: "1:30450032616:web:faeac62eef1a1ee5d68e5d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    background: url('images/foto-cuplu.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: rgba(249,230,225,0.9);
+    padding: 15px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6em;
+    color: #b87360;
+}
+
+.invitation {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 40px;
+    background: rgba(0,0,0,0.45);
+    border-radius: 25px;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.invitation h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4em;
+    margin-bottom: 15px;
+}
+
+.invitation p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.invitation input {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.response-btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.response-btns button {
+    padding: 12px 25px;
+    background-color: #b87360;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.response-btns button:hover {
+    background-color: #9b5f48;
+    transform: scale(1.05);
+}
+
+#error-msg {
+    margin-top: 15px;
+    color: #ffd1c1;
+    font-weight: 700;
+    display: none;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(249,230,225,0.9);
+    color: #4b3c2a;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>¡Nuestra Invitación!</h1>
+</header>
+
+<div class="invitation">
+    <h2>Nos Casamos ❤️</h2>
+    <p>
+        Queridos amigos y familia,<br>
+        Los invitamos a compartir nuestro día especial el<br>
+        <strong>26 de Septiembre de 2026 – Perú</strong>
+    </p>
+
+    <input type="text" id="guest-name" placeholder="Nombre y Apellido">
+
+    <div class="response-btns">
+        <button id="participar-btn">Participar</button>
+        <button id="no-participar-btn">No Participar</button>
+    </div>
+
+    <div id="error-msg">Por favor, escribe tu nombre antes de responder ❤️</div>
+</div>
+
+<footer>
+    &copy; 2026 Nuestra Boda – Con amor
+</footer>
+
+<script>
+const nameInput = document.getElementById("guest-name");
+const errorMsg = document.getElementById("error-msg");
+
+function validateName() {
+    if (nameInput.value.trim() === "") {
+        errorMsg.style.display = "block";
+        return false;
+    }
+    errorMsg.style.display = "none";
+    return true;
+}
+
+function saveResponse(respuesta) {
+    const nombre = nameInput.value.trim();
+
+    db.collection("invitados").add({
+        nombre: nombre,
+        respuesta: respuesta,
+        fecha: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        alert("Gracias " + nombre + " ❤️\nRespuesta registrada correctamente.");
+        nameInput.value = "";
+    }).catch((error) => {
+        alert("Error al guardar la respuesta 😢");
+        console.error(error);
+    });
+}
+
+document.getElementById("participar-btn").addEventListener("click", () => {
+    if (!validateName()) return;
+    saveResponse("Participa");
+});
+
+document.getElementById("no-participar-btn").addEventListener("click", () => {
+    if (!validateName()) return;
+    saveResponse("No participa");
+});
+</script>
+
+</body>
+</html>
