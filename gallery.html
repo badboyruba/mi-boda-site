@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería - Nuestra Boda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="gallery.html">Galería</a></li>
+        <li><a href="contact.html">Contacto</a></li>
+        <li><a href="upload.html">Subir Fotos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="gallery">
+      <h1>Galería de fotos de nuestros invitados</h1>
+      <div class="images" id="galleryImages"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nuestra Boda</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDxyVnfeo6Pxi58Q-QGVxZPTa3_2WbEXXE",
+      authDomain: "boda-peru.firebaseapp.com",
+      projectId: "boda-peru",
+      storageBucket: "boda-peru.firebasestorage.app",
+      messagingSenderId: "30450032616",
+      appId: "1:30450032616:web:faeac62eef1a1ee5d68e5d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+
+    const gallery = document.getElementById("galleryImages");
+    const listRef = ref(storage, 'event-photos/');
+
+    listAll(listRef).then(res => {
+      res.items.forEach(async (itemRef) => {
+        const url = await getDownloadURL(itemRef);
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Foto boda";
+        img.style.width = "200px";
+        img.style.margin = "10px";
+        img.style.borderRadius = "15px";
+        gallery.appendChild(img);
+      });
+    });
+  </script>
+</body>
+</html>

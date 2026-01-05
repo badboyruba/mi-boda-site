@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sube tus fotos - Nuestra Boda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="gallery.html">Galería</a></li>
+        <li><a href="contact.html">Contacto</a></li>
+        <li><a href="upload.html">Subir Fotos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="upload">
+      <h1>Sube tus fotos del evento</h1>
+      <p>¡Gracias por compartir tus momentos especiales con nosotros!</p>
+      <form id="uploadForm">
+        <input type="file" id="imageFile" accept="image/*" required>
+        <button type="submit">Subir Foto</button>
+      </form>
+      <p id="status"></p>
+      <p>O escanea este código QR para subir fotos desde tu móvil:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://localhost:5500/upload.html" alt="QR Subir Fotos">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nuestra Boda</p>
+  </footer>
+
+  <!-- Script modular -->
+  <script type="module" src="js/upload.js"></script>
+</body>
+</html>

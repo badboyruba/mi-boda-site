@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda - Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="gallery.html">Galería</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="upload.html">Subir Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay">
+            <h1>¡Nos Casamos! 26.09.2026 - Perú</h1>
+            <p>Bienvenidos a nuestro sitio de boda 💖</p>
+        </div>
+    </section>
+
+    <!-- Countdown Nunta -->
+    <section id="countdown">
+        <div class="time-box"><span id="days">0</span>Días</div>
+        <div class="time-box"><span id="hours">0</span>Horas</div>
+        <div class="time-box"><span id="minutes">0</span>Minutos</div>
+        <div class="time-box"><span id="seconds">0</span>Segundos</div>
+    </section>
+
+    <!-- Music Player Romantic -->
+    <section class="music-player">
+        <audio id="weddingSong" loop autoplay>
+            <source src="audio/melodia-boda.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+        <div class="player-content">
+            <button id="playPauseBtn">🎵 Reproducir</button>
+            <span id="heart" class="heart pulse">❤️</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nuestra Boda</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+    <script>
+        // Countdown logic
+        const countdownDate = new Date("Sep 26, 2026 00:00:00").getTime();
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            daysEl.innerText = Math.floor(distance / (1000*60*60*24));
+            hoursEl.innerText = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+            minutesEl.innerText = Math.floor((distance % (1000*60*60)) / (1000*60));
+            secondsEl.innerText = Math.floor((distance % (1000*60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>
